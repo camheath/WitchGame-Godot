@@ -6,6 +6,7 @@ import os
 from playerfunctions import handle_witch_movement
 import spritesheet
 import random
+import sys
 pygame.font.init()
 pygame.mixer.init()
 
@@ -32,36 +33,73 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (200, 50, 120)
 
-# Load in audio
-FIREBALL_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'curse3.ogg'))
-WITCH_HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'hurt.ogg'))
-BAT_HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'hit.ogg'))
-ORB_PICKUP_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'coin.ogg'))
-BREAD_PICKUP_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'heal.ogg'))
-MUSIC = pygame.mixer.music.load(os.path.join('Assets', 'prismaticlight.mp3'))
+
 
 HEALTH_FONT = pygame.font.SysFont('helvetica', 40)
 
+
+def resource_path(relative_path):
+    try:
+    # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+# Load in audio
+# Load urls
+MUSIC_URL = resource_path('Assets\prismaticlight.mp3')
+FIREBALL_FIRE_URL = resource_path('Assets\curse3.ogg')
+WITCH_HIT_URL = resource_path('Assets\hurt.ogg')
+BAT_HIT_URL = resource_path('Assets\hit.ogg')
+ORB_PICKUP_URL = resource_path('Assets\coin.ogg')
+BREAD_PICKUP_URL = resource_path('Assets\heal.ogg')
+
+FIREBALL_FIRE_SOUND = pygame.mixer.Sound(FIREBALL_FIRE_URL)
+WITCH_HIT_SOUND = pygame.mixer.Sound(WITCH_HIT_URL)
+BAT_HIT_SOUND = pygame.mixer.Sound(BAT_HIT_URL)
+ORB_PICKUP_SOUND = pygame.mixer.Sound(ORB_PICKUP_URL)
+BREAD_PICKUP_SOUND = pygame.mixer.Sound(BREAD_PICKUP_URL)
+MUSIC = pygame.mixer.music.load(MUSIC_URL)
+
 # Load in images
-WITCH_IMAGE = pygame.image.load(os.path.join('Assets', 'witch.png'))
-FIREBALL_IMAGE = pygame.image.load(os.path.join('Assets', 'fireball.png'))
+# Load urls
+WITCH_URL = resource_path('Assets/witch.png')
+FIREBALL_URL = resource_path('Assets/fireball.png')
+ORB_URL = resource_path('Assets/yellow_orb.png')
+SKY_URL = resource_path('Assets/sky.png')
+SNOW_URL = resource_path('Assets/snow.png')    
+BAT_URL = resource_path('Assets/bat.png')
+BREAD_URL = resource_path('Assets/bread.png')
+
+
+WITCH_IMAGE = pygame.image.load(WITCH_URL)
+
+FIREBALL_IMAGE = pygame.image.load(FIREBALL_URL) 
 FIREBALL = pygame.transform.scale(FIREBALL_IMAGE, (11, 7))
-ORB_IMAGE = pygame.image.load(os.path.join('Assets', 'yellow_orb.png'))
-SKY_IMAGE = pygame.image.load(os.path.join('Assets', 'sky.png'))
+
+ORB_IMAGE = pygame.image.load(ORB_URL)
+
+SKY_IMAGE = pygame.image.load(SKY_URL)
 SKY = pygame.transform.scale(SKY_IMAGE, (448, HEIGHT))
-SNOW_IMAGE = pygame.image.load(os.path.join('Assets', 'snow.png'))
+
+SNOW_IMAGE = pygame.image.load(SNOW_URL)
 SNOW = pygame.transform.scale(SNOW_IMAGE, (WIDTH, HEIGHT))
-BAT_IMAGE = pygame.image.load(os.path.join('Assets', 'bat.png'))
-BREAD_IMAGE = pygame.image.load(os.path.join('Assets', 'bread.png'))
+
+BAT_IMAGE = pygame.image.load(BAT_URL)
+
+BREAD_IMAGE = pygame.image.load(BREAD_URL)
 BREAD = pygame.transform.scale(BREAD_IMAGE, (46, 46))
+
+# Spritesheets
 witch_sprite_sheet = spritesheet.SpriteSheet(WITCH_IMAGE)
 bat_sprite_sheet = spritesheet.SpriteSheet(BAT_IMAGE)
 fireball_sprite_sheet = spritesheet.SpriteSheet(FIREBALL_IMAGE)
 orb_sprite_sheet = spritesheet.SpriteSheet(ORB_IMAGE)
-
 witch_0 = witch_sprite_sheet.get_image(0, 24, 30, 3, BLACK)
-bat_0 = bat_sprite_sheet.get_image(0, 30, 32, 2, BLACK)
-orb_0 = orb_sprite_sheet.get_image(0, 32, 32, 2, BLACK)
+
+
 
 
 def draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll, timer, bat_frame, orb_frame):
