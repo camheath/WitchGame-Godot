@@ -1,7 +1,5 @@
 # TO DO
-# ADD ANIMATIONS TO WITCH, BATS, ORBS
-# SCROLL BACKGROUND
-
+# ADD ANIMATIONS TO WITCH
 
 import pygame
 import os
@@ -32,6 +30,7 @@ BREAD_PICKUP = pygame.USEREVENT + 4
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+RED = (200, 50, 120)
 
 # Load in audio
 FIREBALL_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'curse3.ogg'))
@@ -64,10 +63,8 @@ witch_0 = witch_sprite_sheet.get_image(0, 24, 30, 3, BLACK)
 bat_0 = bat_sprite_sheet.get_image(0, 30, 32, 2, BLACK)
 orb_0 = orb_sprite_sheet.get_image(0, 32, 32, 2, BLACK)
 
-frame = 1
 
-
-def draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll):
+def draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll, timer, bat_frame, orb_frame):
     for x in range(4):
         WIN.blit(SKY, (x * 448 + sky_scroll, 0))
 
@@ -77,22 +74,23 @@ def draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_l
         WIN.blit(fireball_sprite_sheet.get_image(0, 11, 7, 2, BLACK), shot)
 
     for orb in orbs:
-        WIN.blit(orb_0, orb)
+        WIN.blit(orb_sprite_sheet.get_image(orb_frame, 32, 32, 2, BLACK), orb)
 
     for bread in bread_list:
         WIN.blit(BREAD, bread)
 
     for bat in bats:
-        WIN.blit(bat_0, bat)
+        WIN.blit(bat_sprite_sheet.get_image(bat_frame, 30, 32, 2, BLACK), bat)
+        
 
     for y in range(4):
         WIN.blit(SNOW, (0, -y * HEIGHT + snow_scroll))
-  
 
-    witch_health_text = HEALTH_FONT.render("Health: " + str(witch_health), 1, WHITE)
+
+    witch_health_text = HEALTH_FONT.render("Health: " + str(witch_health), 1, RED)
     WIN.blit(witch_health_text, (10, 10))
 
-    score = HEALTH_FONT.render("Score: " + str(total_score), 1, WHITE)
+    score = HEALTH_FONT.render("Score: " + str(total_score), 1, RED)
     WIN.blit(score, (WIDTH - score.get_width() - 20, 10))
 
     pygame.display.update()
@@ -152,6 +150,8 @@ def main():
     bread_list = []
     sky_scroll = 0
     snow_scroll = 0
+    bat_frame = 0
+    orb_frame = 0
 
     pygame.mixer.music.set_volume(.5)
     pygame.mixer.music.play(loops = -1)
@@ -220,6 +220,18 @@ def main():
                 bat = pygame.Rect(WIDTH + 5, spawn_point, 60, 64)
                 bats.append(bat)
 
+        # ANIMATE BATS       
+        if timer % 10 == 0:
+            bat_frame += 1
+            if bat_frame >= 5:
+                bat_frame = 0
+
+        # ANIMATE ORBS       
+        if timer % 5 == 0:
+            orb_frame += 1
+            if orb_frame >= 4:
+                orb_frame = 0
+
         orb_chance = random.randint(0, 200)
         if orb_chance == 0 and len(orbs) == 0 and timer > 500:
             spawn_point = random.randint(10 , HEIGHT - 65)
@@ -253,13 +265,15 @@ def main():
         total_score = time_score + bonus_score
 
         if witch_health <= 0:
-            draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll)
+            draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll, timer, bat_frame, orb_frame)
             break
 
-        draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll)
+            
+        draw_window(witch, witch_health, bats, total_score, fireballs, orbs, bread_list, sky_scroll, snow_scroll, timer, bat_frame, orb_frame)
+
     
 
-    draw_text = HEALTH_FONT.render("FINAL SCORE: " + str(total_score), 1, WHITE)
+    draw_text = HEALTH_FONT.render("FINAL SCORE: " + str(total_score), 1, RED)
     WIN.blit(draw_text, (WIDTH//2 - draw_text.get_width()//2, HEIGHT//2 - draw_text.get_height()//2))
     pygame.display.update()  
     pygame.time.delay(5000)
