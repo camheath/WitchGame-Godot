@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhc3wrreyk0aq"]
+[gd_scene load_steps=13 format=3 uid="uid://bhc3wrreyk0aq"]
 
 [ext_resource type="Script" path="res://assets/scripts/parallax_background.gd" id="1_3xliy"]
 [ext_resource type="Texture2D" uid="uid://278jhnx3fqgj" path="res://assets/sprites/sky5.png" id="1_7iem6"]
@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://bh51hn8u8f1t6" path="res://assets/sprites/sky1.png" id="5_ts4su"]
 [ext_resource type="Texture2D" uid="uid://b1wjd0yje5ebv" path="res://assets/sprites/mountain.png" id="6_ypplg"]
 [ext_resource type="PackedScene" uid="uid://cwc4glop0t68v" path="res://assets/scenes/player.tscn" id="7_yg4yh"]
+[ext_resource type="Texture2D" uid="uid://dorxvi0u34xev" path="res://assets/sprites/snow.png" id="8_wwyp0"]
 [ext_resource type="Script" path="res://assets/scripts/manager.gd" id="9_l4xfy"]
 [ext_resource type="Script" path="res://assets/scripts/health_label.gd" id="10_q5fvl"]
+[ext_resource type="Script" path="res://assets/scripts/parallax_background_2.gd" id="11_rb0im"]
 
 [node name="Main" type="Node2D"]
 
@@ -92,5 +94,18 @@ offset_right = 877.0
 offset_bottom = 36.0
 text = "Score: 0"
 horizontal_alignment = 2
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 1
+script = ExtResource("11_rb0im")
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(896, 640)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground2/ParallaxLayer7"]
+scale = Vector2(4, 4)
+texture = ExtResource("8_wwyp0")
+centered = false
 
 [connection signal="healthChange" from="Player" to="HealthLabel" method="_on_player_health_change"]
