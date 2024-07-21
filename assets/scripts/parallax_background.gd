@@ -1,5 +1,4 @@
 extends ParallaxBackground
-
 @export var scrollSpeed: int = 4
 @onready var player: Area2D = $"../Player"
 

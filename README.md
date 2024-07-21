@@ -1,5 +1,7 @@
 # WitchGame
 
+I got bored and wanted to attempt porting a game
+
 Assets from opengameart.org
 
 Background: https://opengameart.org/content/sky-tiles
