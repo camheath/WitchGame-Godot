@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhc3wrreyk0aq"]
+[gd_scene load_steps=11 format=3 uid="uid://bhc3wrreyk0aq"]
 
 [ext_resource type="Script" path="res://assets/scripts/parallax_background.gd" id="1_3xliy"]
 [ext_resource type="Texture2D" uid="uid://278jhnx3fqgj" path="res://assets/sprites/sky5.png" id="1_7iem6"]
@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bh51hn8u8f1t6" path="res://assets/sprites/sky1.png" id="5_ts4su"]
 [ext_resource type="Texture2D" uid="uid://b1wjd0yje5ebv" path="res://assets/sprites/mountain.png" id="6_ypplg"]
 [ext_resource type="PackedScene" uid="uid://cwc4glop0t68v" path="res://assets/scenes/player.tscn" id="7_yg4yh"]
-[ext_resource type="Script" path="res://assets/scripts/spawner.gd" id="9_l4xfy"]
+[ext_resource type="Script" path="res://assets/scripts/manager.gd" id="9_l4xfy"]
+[ext_resource type="Script" path="res://assets/scripts/health_label.gd" id="10_q5fvl"]
 
 [node name="Main" type="Node2D"]
 
@@ -68,9 +69,28 @@ scale = Vector2(2, 4)
 texture = ExtResource("6_ypplg")
 centered = false
 
+[node name="Manager" type="Node" parent="."]
+script = ExtResource("9_l4xfy")
+
 [node name="Player" parent="." instance=ExtResource("7_yg4yh")]
+top_level = true
 position = Vector2(428, 318)
 speed = 5
 
-[node name="Spawner" type="Node" parent="."]
-script = ExtResource("9_l4xfy")
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 17.0
+offset_top = 11.0
+offset_right = 87.0
+offset_bottom = 34.0
+text = "Health: 0"
+script = ExtResource("10_q5fvl")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 806.0
+offset_top = 13.0
+offset_right = 877.0
+offset_bottom = 36.0
+text = "Score: 0"
+horizontal_alignment = 2
+
+[connection signal="healthChange" from="Player" to="HealthLabel" method="_on_player_health_change"]

@@ -1,6 +1,9 @@
 extends Area2D
 
 @export var speed: int = 15
+var health = 10
+signal healthChange
+
 
 func _physics_process(delta):
 	if Input.is_action_pressed("left"):
@@ -19,4 +22,9 @@ func _physics_process(delta):
 		position.y += speed
 		if position.y > 584:
 			position.y = 584
-	#position.x += scrollSpeed
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area is Enemy:
+		health -= 1
+		healthChange.emit()
