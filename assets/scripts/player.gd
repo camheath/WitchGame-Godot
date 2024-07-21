@@ -1,10 +1,10 @@
 extends Area2D
 
-@export var speed: int = 20
+@export var speed: int = 15
 
 func _physics_process(delta):
 	if Input.is_action_pressed("left"):
-		position.x -= speed
+		position.x -= int(speed * 1.2)
 		if position.x < 48:
 			position.x = 48
 	if Input.is_action_pressed("right"):
