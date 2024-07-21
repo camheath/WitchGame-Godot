@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 
 window/size/viewport_width=896
 window/size/viewport_height=640
+window/size/resizable=false
 
 [dotnet]
 
