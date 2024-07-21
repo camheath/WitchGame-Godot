@@ -17,4 +17,4 @@ Fireball: https://opengameart.org/content/fireball-flying-through-the-air
 Music: https://opengameart.org/content/prismatic-light
 
 Sound Effects: https://opengameart.org/content/spell-sounds-starter-pack
-        https://opengameart.org/content/nes-sounds
+		https://opengameart.org/content/nes-sounds
