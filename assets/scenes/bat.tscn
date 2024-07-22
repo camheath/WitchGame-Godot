@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bblj1c2j5q7gr"]
+[gd_scene load_steps=14 format=3 uid="uid://bblj1c2j5q7gr"]
 
 [ext_resource type="Script" path="res://assets/scripts/bat.gd" id="1_kfr3x"]
 [ext_resource type="Texture2D" uid="uid://co42tmengetef" path="res://assets/sprites/bat.png" id="2_xi8k7"]
+[ext_resource type="AudioStream" uid="uid://xge0s6jtuaob" path="res://assets/audio/hit.mp3" id="3_6jy6r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_faj8f"]
 atlas = ExtResource("2_xi8k7")
@@ -49,6 +50,104 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nnhqh"]
 size = Vector2(22.6667, 30.6667)
 
+[sub_resource type="Animation" id="Animation_bnt6d"]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX_Kill:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1pyem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX_Kill:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_liwyw"]
+_data = {
+"Die": SubResource("Animation_bnt6d"),
+"RESET": SubResource("Animation_1pyem")
+}
+
 [node name="Bat" type="Area2D"]
 script = ExtResource("1_kfr3x")
 
@@ -62,5 +161,13 @@ frame_progress = 0.587882
 position = Vector2(-4, -16)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_nnhqh")
+
+[node name="SFX_Kill" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6jy6r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_liwyw")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

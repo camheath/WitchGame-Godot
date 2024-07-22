@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 		var batInstance = batScene.instantiate()
 		add_child(batInstance)
 		batInstance.position.x = 1000
-		batInstance.position.y = randi_range(0, 800)
+		batInstance.position.y = randi_range(50, 750)
 	if Input.is_action_just_pressed("shoot") && fbCount < 6:
 		fbCount += 1
 		var fireballInstance = fireballScene.instantiate()

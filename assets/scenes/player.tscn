@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwc4glop0t68v"]
+[gd_scene load_steps=10 format=3 uid="uid://cwc4glop0t68v"]
 
 [ext_resource type="Texture2D" uid="uid://ddlu3r7v1w335" path="res://assets/sprites/witch.png" id="1_66ff4"]
 [ext_resource type="Script" path="res://assets/scripts/player.gd" id="1_qighj"]
+[ext_resource type="AudioStream" uid="uid://ct8b1lvxh5oie" path="res://assets/audio/hurt.mp3" id="3_kno1l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3oegu"]
 atlas = ExtResource("1_66ff4")
@@ -53,5 +54,9 @@ frame_progress = 0.077446
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_51d2l")
+
+[node name="SFX_Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kno1l")
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

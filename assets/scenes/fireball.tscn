@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqabrc0x6y7tw"]
+[gd_scene load_steps=8 format=3 uid="uid://dqabrc0x6y7tw"]
 
 [ext_resource type="Script" path="res://assets/scripts/fireball.gd" id="1_13iv2"]
 [ext_resource type="Texture2D" uid="uid://dpw7ju2rdvg8i" path="res://assets/sprites/fireball.png" id="1_m0d7r"]
+[ext_resource type="AudioStream" uid="uid://dei5a55sgbypa" path="res://assets/audio/curse3.mp3" id="3_kwtd8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mm15x"]
 atlas = ExtResource("1_m0d7r")
@@ -40,3 +41,7 @@ frame_progress = 0.258718
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 0)
 shape = SubResource("CircleShape2D_t6to2")
+
+[node name="SFX_Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kwtd8")
+bus = &"SFX"

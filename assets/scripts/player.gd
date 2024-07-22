@@ -3,6 +3,7 @@ extends Area2D
 @export var speed: int = 15
 var health = 10
 signal healthChange
+@onready var sfx_hurt: AudioStreamPlayer = $SFX_Hurt
 
 
 func _physics_process(delta):
@@ -28,3 +29,5 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Enemy:
 		health -= 1
 		healthChange.emit()
+		area.queue_free()
+		sfx_hurt.play()
