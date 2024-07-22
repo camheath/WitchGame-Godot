@@ -1,6 +1,8 @@
 # WitchGame
 
 I got bored and wanted to attempt porting a game
+Also maybe to get the original designer reinterested in game design
+
 
 Assets from opengameart.org
 
